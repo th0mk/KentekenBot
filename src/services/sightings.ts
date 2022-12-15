@@ -1,5 +1,5 @@
 import { Sighting } from '../models/sighting';
-import { Guild, User, Util } from 'discord.js';
+import { escapeMarkdown, Guild, User, Utils } from 'discord.js';
 import { DateTime } from '../util/date-time';
 import { DiscordTimestamps } from '../enums/discord-timestamps';
 import { Str } from '../util/str';
@@ -55,7 +55,7 @@ export class Sightings {
             license,
             discordUserId: author.id,
             discordGuildId: guild?.id,
-            comment: comment ? Str.limitCharacters(Util.escapeMarkdown(comment), 255) : null,
+            comment: comment ? Str.limitCharacters(escapeMarkdown(comment), 255) : null,
         });
     }
 }
