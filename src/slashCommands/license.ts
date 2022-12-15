@@ -21,8 +21,7 @@ const command: SlashCommand = {
         .addStringOption(option => {
             return option
               .setName("comment")
-              .setDescription("Voeg een comment toe aan je spot")
-              .setRequired(true);
+              .setDescription("Voeg een comment toe aan je spot");
           }),
     execute: async (interaction) => {
         const options: { [key: string]: string | number | boolean } = {};
