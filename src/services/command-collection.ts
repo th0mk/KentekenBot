@@ -9,6 +9,7 @@ import { UserSpots } from '../commands/userspots';
 import { ServerSpots } from '../commands/serverspots';
 import { RandomSpot } from '../commands/randomspot';
 import { Search } from '../commands/search';
+import { Stats } from '../commands/stats';
 
 export class CommandCollection {
     private static instance: CommandCollection;
@@ -19,7 +20,7 @@ export class CommandCollection {
     }
 
     private getCommandClasses(): CommandConstructor[] {
-        return [License, Ping, Status, UserSpots, ServerSpots, RandomSpot, Search];
+        return [License, Ping, Status, UserSpots, ServerSpots, RandomSpot, Search, Stats];
     }
 
     private getCommands(): { builder: SlashCommandBuilder; command: CommandConstructor }[] {
