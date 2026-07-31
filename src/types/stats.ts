@@ -1,3 +1,5 @@
+export type StatsScope = 'global' | 'server';
+
 export interface StatSpot {
     license: string;
     createdAt: Date;

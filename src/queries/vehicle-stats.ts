@@ -4,9 +4,15 @@ import { StatsCalculator } from '../util/stats-calculator';
 import { StatsProfile, StatSpot } from '../types/stats';
 
 export class VehicleStats {
-    public static async forUser(discordUserId: string): Promise<StatsProfile> {
+    public static async forUser(discordUserId: string, discordGuildId: string | null = null): Promise<StatsProfile> {
+        const where: Record<string, string> = { discordUserId };
+
+        if (discordGuildId) {
+            where.discordGuildId = discordGuildId;
+        }
+
         const sightings = await Sighting.findAll({
-            where: { discordUserId },
+            where,
             include: [
                 {
                     model: Vehicle,

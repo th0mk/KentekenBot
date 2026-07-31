@@ -1,20 +1,24 @@
 import { ContainerBuilder, SeparatorBuilder, SeparatorSpacingSize, TextDisplayBuilder } from 'discord.js';
-import { NamedVehicle, StatsProfile } from '../types/stats';
+import { NamedVehicle, StatsProfile, StatsScope } from '../types/stats';
 import { Str } from './str';
 import { formatCurrency } from './format-currency';
 import { DateTime } from './date-time';
 import { DiscordTimestamps } from '../enums/discord-timestamps';
 
 export class StatsView {
-    public static build(profile: StatsProfile, displayName: string): ContainerBuilder[] {
+    public static build(profile: StatsProfile, displayName: string, scope: StatsScope = 'global'): ContainerBuilder[] {
         const container = new ContainerBuilder().setAccentColor(0x5865f2);
 
-        container.addTextDisplayComponents(new TextDisplayBuilder().setContent(`## 📊 ${displayName}'s stats`));
+        const title = `## 📊 ${displayName}'s stats`;
+        const header = scope === 'server' ? `${title}\n-# Alleen spots in deze server` : title;
+        container.addTextDisplayComponents(new TextDisplayBuilder().setContent(header));
 
         if (profile.totalSpots === 0) {
-            container.addTextDisplayComponents(
-                new TextDisplayBuilder().setContent('Nog geen spots. Gebruik `/k <kenteken>` om te beginnen!')
-            );
+            const emptyMessage =
+                scope === 'server'
+                    ? 'Nog geen spots in deze server. Gebruik `/k <kenteken>` om te beginnen!'
+                    : 'Nog geen spots. Gebruik `/k <kenteken>` om te beginnen!';
+            container.addTextDisplayComponents(new TextDisplayBuilder().setContent(emptyMessage));
             return [container];
         }
 
